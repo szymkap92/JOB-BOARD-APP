@@ -13,7 +13,7 @@
             <hr class="mb-6">
 
             <div class="prose max-w-none text-gray-700 leading-relaxed">
-                {!! $job->description !!}
+                {!! nl2br(e($job->safe_description)) !!}
             </div>
 
             <div class="mt-10 p-6 bg-gray-50 rounded-lg border border-gray-200">

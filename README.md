@@ -7,7 +7,8 @@ Prosta aplikacja do zarządzania ofertami pracy, stworzona jako zadanie rekrutac
 - **Laravel 12** z PHP 8.2
 - **FilamentPHP v3** (Panel administracyjny)
 - **Tailwind CSS v4** (Frontend, budowany przez Vite)
-- **SQLite** (domyślna baza danych, konfigurowalna na MySQL/MariaDB w `.env`)
+- **MySQL / MariaDB** (domyślna konfiguracja w `.env.example`)
+- **SQLite** (opcjonalnie, do szybkiego uruchomienia lokalnie)
 
 ## Funkcjonalności
 
@@ -15,7 +16,8 @@ Prosta aplikacja do zarządzania ofertami pracy, stworzona jako zadanie rekrutac
 - **Strona kliencka** (`/`): Publiczna lista ofert z paginacją.
 - **Wyszukiwarka**: Szukanie po tytule i opisie.
 - **Filtrowanie**: Po kategorii i lokalizacji.
-- **Testy**: 7 testów funkcjonalnych (filtry, wyszukiwarka, strona szczegółów).
+- **Bezpieczeństwo widoku**: Opisy ofert są sanitizowane przed wyświetleniem.
+- **Testy**: testy funkcjonalne dla listy ofert, filtrów, wyszukiwarki i widoku szczegółów.
 
 ## Instalacja
 
@@ -28,17 +30,24 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Domyślna konfiguracja (`.env.example`) używa **SQLite** - nie wymaga dodatkowej konfiguracji bazy danych.
+Ustaw dane bazy oraz konto administratora w `.env`:
 
-Jeśli chcesz użyć MySQL/MariaDB, zmień w pliku `.env`:
-
-```
+```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=job_board
 DB_USERNAME=root
 DB_PASSWORD=
+ADMIN_EMAIL=admin@example.com
+ADMIN_PASSWORD=TwojeSilneHaslo
+```
+
+Jeśli chcesz użyć SQLite:
+
+```env
+DB_CONNECTION=sqlite
+# DB_DATABASE=database/database.sqlite
 ```
 
 Następnie uruchom migracje z seederem i serwer:
@@ -53,8 +62,8 @@ Komenda `migrate --seed` utworzy tabele i wypełni bazę przykładowymi danymi (
 ## Dane do logowania do panelu admina
 
 - **URL:** http://localhost:8000/admin
-- **Email:** admin@test.pl
-- **Haslo:** ge2gy6ok
+- **Email:** wartość z `ADMIN_EMAIL` w `.env`
+- **Hasło:** wartość z `ADMIN_PASSWORD` w `.env`
 
 ## Testy
 

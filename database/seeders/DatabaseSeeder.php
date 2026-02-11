@@ -7,6 +7,7 @@ use App\Models\JobOffer;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,10 +15,18 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::factory()->create([
+        $adminEmail = env('ADMIN_EMAIL', 'admin@example.com');
+        $adminPassword = env('ADMIN_PASSWORD');
+
+        if (blank($adminPassword)) {
+            $adminPassword = Str::random(16);
+
+            $this->command?->warn('ADMIN_PASSWORD is not set. Generated admin password: '.$adminPassword);
+        }
+
+        User::query()->updateOrCreate(['email' => $adminEmail], [
             'name' => 'Admin',
-            'email' => 'admin@test.pl',
-            'password' => 'ge2gy6ok',
+            'password' => $adminPassword,
         ]);
 
         $it = Category::create(['name' => 'IT']);

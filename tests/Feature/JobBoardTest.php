@@ -158,4 +158,23 @@ class JobBoardTest extends TestCase
         $response->assertSee('Praca z Laravel');
         $response->assertDontSee('Praca z Symfony');
     }
+
+    #[Test]
+    public function job_detail_page_sanitizes_description_output(): void
+    {
+        $category = Category::create(['name' => 'IT']);
+        $job = JobOffer::create([
+            'title' => 'Security Test',
+            'description' => '<p>Bezpieczny opis</p><script>alert("xss")</script>',
+            'location' => 'Rzeszów',
+            'category_id' => $category->id,
+        ]);
+
+        $response = $this->get('/jobs/'.$job->id);
+
+        $response->assertStatus(200);
+        $response->assertSee('Bezpieczny opis');
+        $response->assertDontSee('alert("xss")');
+        $response->assertDontSee('<script>', false);
+    }
 }
