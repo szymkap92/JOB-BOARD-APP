@@ -5,8 +5,8 @@ namespace Tests\Feature;
 use App\Models\Category;
 use App\Models\JobOffer;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class JobBoardTest extends TestCase
 {
@@ -107,7 +107,7 @@ class JobBoardTest extends TestCase
             'category_id' => $marketing->id,
         ]);
 
-        $response = $this->get('/?category=' . $it->id);
+        $response = $this->get('/?category='.$it->id);
 
         $response->assertStatus(200);
         $response->assertSee('PHP Developer');
@@ -125,7 +125,7 @@ class JobBoardTest extends TestCase
             'category_id' => $category->id,
         ]);
 
-        $response = $this->get('/jobs/' . $job->id);
+        $response = $this->get('/jobs/'.$job->id);
 
         $response->assertStatus(200);
         $response->assertSee('Laravel Developer');
@@ -152,7 +152,7 @@ class JobBoardTest extends TestCase
             'category_id' => $it->id,
         ]);
 
-        $response = $this->get('/?search=PHP&location=Rzeszów&category=' . $it->id);
+        $response = $this->get('/?search=PHP&location=Rzeszów&category='.$it->id);
 
         $response->assertStatus(200);
         $response->assertSee('Praca z Laravel');

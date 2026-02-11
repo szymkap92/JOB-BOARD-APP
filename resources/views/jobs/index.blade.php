@@ -42,7 +42,7 @@
                         <span class="text-sm text-gray-500">Dodano: {{ $job->created_at->format('d.m.Y') }}</span>
                     </div>
                     <div class="mt-4 text-gray-700">
-                        {!! Str::limit($job->description, 200) !!}
+                        {{ Str::limit(strip_tags($job->description), 200) }}
                     </div>
                     <a href="{{ route('jobs.show', $job) }}"
                        class="inline-block mt-4 text-gray-900 font-semibold hover:text-brand transition">

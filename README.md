@@ -7,8 +7,7 @@ Prosta aplikacja do zarządzania ofertami pracy, stworzona jako zadanie rekrutac
 - **Laravel 12** z PHP 8.2
 - **FilamentPHP v3** (Panel administracyjny)
 - **Tailwind CSS v4** (Frontend, budowany przez Vite)
-- **MySQL/MariaDB** (Baza danych)
-- **SQLite** (Testy)
+- **SQLite** (domyślna baza danych, konfigurowalna na MySQL/MariaDB w `.env`)
 
 ## Funkcjonalności
 
@@ -29,7 +28,20 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Skonfiguruj bazę danych w pliku `.env`, a następnie:
+Domyślna konfiguracja (`.env.example`) używa **SQLite** - nie wymaga dodatkowej konfiguracji bazy danych.
+
+Jeśli chcesz użyć MySQL/MariaDB, zmień w pliku `.env`:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=job_board
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Następnie uruchom migracje z seederem i serwer:
 
 ```bash
 php artisan migrate --seed
