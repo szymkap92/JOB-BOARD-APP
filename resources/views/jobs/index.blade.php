@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oferty Pracy</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100">
 
     <div class="container mx-auto py-10 px-4">
@@ -13,16 +15,17 @@
 
         <div class="bg-white p-6 rounded-lg shadow-md mb-8">
             <form action="{{ route('home') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <input type="text" name="search" placeholder="Szukaj po tytule lub treści..." 
-                       class="border p-2 rounded w-full" value="{{ request('search') }}">
-                
-                <input type="text" name="location" placeholder="Lokalizacja..." 
-                       class="border p-2 rounded w-full" value="{{ request('location') }}">
+                <input type="text" name="search" placeholder="Szukaj po tytule lub treści..."
+                    class="border p-2 rounded w-full" value="{{ request('search') }}">
+
+                <input type="text" name="location" placeholder="Lokalizacja..." class="border p-2 rounded w-full"
+                    value="{{ request('location') }}">
 
                 <select name="category" class="border p-2 rounded w-full">
                     <option value="">Wszystkie kategorie</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            {{ request('category') == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                     @endforeach
@@ -47,7 +50,9 @@
                     <div class="mt-4 text-gray-700">
                         {!! Str::limit($job->description, 200) !!}
                     </div>
-                    <a href="{{ route('jobs.show', $job) }}" class="inline-block mt-4 text-blue-500 font-semibold hover:underline">Zobacz szczegóły &rarr;</a>
+                    <a href="{{ route('jobs.show', $job) }}"
+                        class="inline-block mt-4 text-blue-500 font-semibold hover:underline">Zobacz szczegóły
+                        &rarr;</a>
                 </div>
             @empty
                 <div class="text-center py-10 bg-white rounded shadow">
@@ -62,4 +67,5 @@
     </div>
 
 </body>
+
 </html>
