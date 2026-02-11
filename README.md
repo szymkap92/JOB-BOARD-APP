@@ -4,40 +4,48 @@ Prosta aplikacja do zarządzania ofertami pracy, stworzona jako zadanie rekrutac
 
 ## Technologie
 
-- **Laravel 11**
+- **Laravel 12** z PHP 8.2
 - **FilamentPHP v3** (Panel administracyjny)
-- **Tailwind CSS** (Frontend)
-- **SQLite** (Baza danych do testów)
-- **MariaDB/MySQL** (Baza produkcyjna)
+- **Tailwind CSS v4** (Frontend, budowany przez Vite)
+- **MySQL/MariaDB** (Baza danych)
+- **SQLite** (Testy)
 
 ## Funkcjonalności
 
-- **Panel Admina**: Zarządzanie kategoriami i ofertami pracy (CRUD).
-- **Strona Główna**: Publiczna lista ofert z filtrowaniem.
-- **Wyszukiwarka**: Szukanie po tytule, opisie, lokalizacji i kategorii.
-- **Testy**: Zautomatyzowane testy funkcjonalne strony głównej i filtrów.
+- **Panel Admina** (`/admin`): Zarządzanie kategoriami i ofertami pracy (CRUD).
+- **Strona kliencka** (`/`): Publiczna lista ofert z paginacją.
+- **Wyszukiwarka**: Szukanie po tytule i opisie.
+- **Filtrowanie**: Po kategorii i lokalizacji.
+- **Testy**: 7 testów funkcjonalnych (filtry, wyszukiwarka, strona szczegółów).
 
 ## Instalacja
 
-1. Sklonuj repozytorium.
-2. Uruchom `composer install`.
-3. Skopiuj `.env.example` do `.env` i skonfiguruj bazę danych.
-4. Uruchom migracje: `php artisan migrate`.
-5. Stwórz użytkownika admina: `php artisan make:filament-user`.
-6. Uruchom serwer: `php artisan serve`.
+```bash
+git clone https://github.com/szymkap92/JOB-BOARD-APP.git
+cd JOB-BOARD-APP
+composer install
+npm install && npm run build
+cp .env.example .env
+php artisan key:generate
+```
+
+Skonfiguruj bazę danych w pliku `.env`, a następnie:
+
+```bash
+php artisan migrate --seed
+php artisan serve
+```
+
+Komenda `migrate --seed` utworzy tabele i wypełni bazę przykładowymi danymi (kategorie, oferty pracy, konto admina).
+
+## Dane do logowania do panelu admina
+
+- **URL:** http://localhost:8000/admin
+- **Email:** admin@test.pl
+- **Haslo:** ge2gy6ok
 
 ## Testy
-
-Uruchomienie testów automatycznych:
 
 ```bash
 php artisan test
 ```
-
-## Dane do logowania do panelu admina:
-
-URL: /admin
-
-Login: admin@test.pl
-
-Hasło: ge2gy6ok
