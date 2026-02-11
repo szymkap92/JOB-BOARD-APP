@@ -28,7 +28,7 @@ class JobController extends Controller
         $query->where('category_id', $request->category);
     }
 
-    $jobs = $query->get();
+    $jobs = $query->paginate(10)->withQueryString();
 
     return view('jobs.index', compact('jobs', 'categories'));
 }
